@@ -6,13 +6,14 @@ import main as dataScraper
 
 def main(): 
     linkedins = []
-##    file = open("linkedins.csv", encoding = "utf8")
-##
-##    csvreader = csv.reader(file)
-##    for row in csvreader:
-##        linkedins.append(row[0])
+    file = open("linkedins.csv", encoding = "utf8")
 
-    uncleanedData = dataScraper.main("https://www.linkedin.com/company/pj-diesel-engineering-a-s/")
+    csvreader = csv.reader(file)
+    for row in csvreader:
+        linkedins.append(row[0])
+
+    
+    uncleanedData = dataScraper.main(linkedins)
     industry = []
     country = []
     for item in range(len(uncleanedData)):
@@ -26,7 +27,7 @@ def main():
 
 def write_csv(data, filename):
     # PreCon: Data must be a list, filename MUST be a string
-    with open(filename, "w", encoding = "utf8") as f:
+    with open(filename+".csv", "w", encoding = "utf8") as f:
         for line in data:
             f.write("%s\n"%line)
 
