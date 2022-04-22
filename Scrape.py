@@ -2,18 +2,19 @@ from googlesearch import search
 import csv
 import main as dataScraper
 
-
-
 def main(): 
-    linkedins = []
+    links = []
     file = open("linkedins.csv", encoding = "utf8")
 
     csvreader = csv.reader(file)
     for row in csvreader:
-        linkedins.append(row[0])
-
+        if len(row) == 0:
+            links.append("Blank")
+        else:
+            links.append(row[0])
+        
     
-    uncleanedData = dataScraper.main(linkedins)
+    uncleanedData = dataScraper.main(links)
     industry = []
     country = []
     for item in range(len(uncleanedData)):
@@ -26,6 +27,7 @@ def main():
     write_csv(country, "country")
 
 def write_csv(data, filename):
+    
     # PreCon: Data must be a list, filename MUST be a string
     with open(filename+".csv", "w", encoding = "utf8") as f:
         for line in data:

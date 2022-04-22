@@ -36,7 +36,11 @@ def main(linkedins):
     result = []
     
     for company in linkedins:
-
+        if company == "Blank":
+            result.append("Blank");
+            result.append("Blank");
+            continue;
+        
         driver.get(company)
         start = time.time()
           
@@ -59,27 +63,23 @@ def main(linkedins):
             # You can change it as per your needs and internet speed
           
             end = time.time()
-          
             # We will scroll for 20 seconds.
             # You can change it as per your needs and internet speed
             if round(end - start) > 20:
                 break
-
-
+          
         # Scrape the lxml page for the data we need
-
-        
-        
         src = driver.page_source
 
         soup = BeautifulSoup(src, 'lxml')
         intro = soup.find('div', {'class': "ph5 pt3"})
-
-        items = intro.find_all("div", {'class': 'org-top-card-summary-info-list__info-item'})
-
-        result.append(items[0].get_text().strip().replace(",", ";"))
-        result.append(items[1].get_text().strip().replace(",", ";"))
-
+        try:  
+            items = intro.find_all("div", {'class': 'org-top-card-summary-info-list__info-item'})
+            result.append(items[0].get_text().strip().replace(",", ";"))
+            result.append(items[1].get_text().strip().replace(",", ";"))
+        except:
+            result.append("Error");
+            result.append("Error");
     driver.quit()
     return result
 if __name__ == '__main__':
