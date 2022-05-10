@@ -33,13 +33,16 @@ def main(linkedins):
     # //tagname[@attribute='value']
     driver.find_element_by_xpath("//button[@type='submit']").click()
     time.sleep(5)
-    result = []
+    result = {}
+    result["industry"] = []
+    result["country"] = []
+    result["employees"] = []
     
     for company in linkedins:
         if company == "Blank":
-            result.append("Blank");
-            result.append("Blank");
-            result.append("Blank");
+            result["industry"].append("No Industry");
+            result["country"].append("No Country");
+            result["employees"].append("No Employee Information");
             continue;
         
         driver.get(company)
@@ -76,18 +79,18 @@ def main(linkedins):
         intro = soup.find('div', {'class': "ph5 pt3"})
         try:  
             items = intro.find_all("div", {'class': 'org-top-card-summary-info-list__info-item'})
-            result.append(items[0].get_text().strip().replace(",", ";"))
+            result["industry"].append(items[0].get_text().strip().replace(",", ";"))
         except:
-            result.append("No Industry");
+            result["industry"].append("No Industry");
         try:
-            result.append(items[1].get_text().strip().replace(",", ";"))
+            result["country"].append(items[1].get_text().strip().replace(",", ";"))
         except:
-            result.append("No Country");
+            result["country"].append("No Country");
         try:
             employees = intro.find("span", {'class': "org-top-card-secondary-content__see-all t-normal t-black--light link-without-visited-state link-without-hover-state"})
-            result.append(employees.get_text().strip().replace(",",""))
+            result["employees"].append(employees.get_text().strip().replace(",",""))
         except:
-            result.append("No Employee Information");
+            result["employees"].append("No Employee Information");
 
 
 

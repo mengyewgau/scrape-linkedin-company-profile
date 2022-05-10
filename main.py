@@ -15,20 +15,15 @@ def main():
         
     
     uncleanedData = dataScraper.main(links)
-    industry = []
-    country = []
-    employees = [] 
-    for item in range(0,len(uncleanedData),3):
-        industry.append(uncleanedData[item])
-    for item in range(1,len(uncleanedData),3):
-        country.append(uncleanedData[item])
-    for item in range(2,len(uncleanedData),3):
-        employees.append(uncleanedData[item])
-
+    #Write data for industry
+    industry = uncleanedData["industry"]
     write_csv(industry, "industry")
+    #Write data for countries
+    country = uncleanedData["country"]
     write_csv(country, "country")
+    #Write data for employees
+    employees = uncleanedData["employees"]
     write_csv(employees,"employees")
-    print(uncleanedData)
 def write_csv(data, filename):
     
     # PreCon: Data must be a list, filename MUST be a string
