@@ -22,8 +22,15 @@ def main():
     country = uncleanedData["country"]
     write_csv(country, "country")
     #Write data for employees
-    employees = uncleanedData["employees"]
+    employees = uncleanedData["totalEmployees"]
     write_csv(employees,"employees")
+
+
+    # Convert the dictionary to a pandas dataframe
+
+    allCompanyConnections = uncleanedData["connections"]
+    
+    
 def write_csv(data, filename):
     
     # PreCon: Data must be a list, filename MUST be a string
