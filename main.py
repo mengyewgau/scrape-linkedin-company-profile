@@ -22,7 +22,7 @@ def main():
     country = uncleanedData["country"]
     write_csv(country, "country")
     #Write data for employees
-    employees = uncleanedData["totalEmployees"]
+    employees = uncleanedData["totalEmployees"] 
     write_csv(employees,"employees")
 
 
