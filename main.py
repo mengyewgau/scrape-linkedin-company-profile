@@ -29,6 +29,9 @@ def main():
     # Convert the dictionary to a pandas dataframe
 
     allCompanyConnections = uncleanedData["connections"]
+
+    for co in allCompanyConnections:
+        print(co)
     
     
 def write_csv(data, filename):
