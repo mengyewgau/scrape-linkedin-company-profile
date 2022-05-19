@@ -16,10 +16,15 @@
 from selenium import webdriver
 from bs4 import BeautifulSoup
 import time
-
+import requiredConnections
 
 def main(browser, link):
-    browser.get(addConnectionsLevel(link))
+    requiredSuffix = requiredConnections.returnRequiredConnections(link)
+
+    for person in requiredSuffix:
+        link = 
+    
+    browser.get(link)
     print('\nScraping your connections...\n')
 
     # Process the first page
@@ -55,11 +60,11 @@ def main(browser, link):
     return {"employeeNames" : employeeNames, "profileLinks" : profileLinks};
 
 # addConnectionsLevel(link) takes in a link, and appends the 1st and 2nd degree connections suffix
-def addConnectionsLevel(link):
+def addConnectionsLevel(link, conn):
     linkUpdated = ""
     for index in range(0, len(link)):
-        if (index + 6 < len(link)) and (link[index:index+6] == "origin"):
-            degreeConnections = "&network=%5B%22F%22%2C%22S%22%5D&"
+        if (index + 6 < len(link)) and (link[index:index+6] == "poeple"):
+            degreeConnections = "/?connectionOf=" + conn + "&"
             linkUpdated = linkUpdated + degreeConnections + link[index]
         else:
             linkUpdated = linkUpdated + link[index]
