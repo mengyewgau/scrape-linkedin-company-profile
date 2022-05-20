@@ -26,7 +26,7 @@ Company linkedin profile should minimally be valid with Industry, Country, Num o
 **Answer:** 
 - Create an csv file called reqCon.csv. Under the 2 columns made below, append the name of the connection, and their url_code.
 - Google how to check url_code for connection of a person
-![reqcon.png](..\screenshots\reqcon.png)
+![reqconexample.png](..\screenshots\reqconexample.png)
 
 
 
