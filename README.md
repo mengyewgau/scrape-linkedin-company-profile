@@ -19,7 +19,4 @@
 2. Missing LinkedIn appears as "Blank" in output
 3. LinkedIn pages that are not claimed appear as "Error"
 
-## Features unsupported/not implemented:
-1. Retrieving 1st and 2nd degree connections
-2. Retrieving Company name
 

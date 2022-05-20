@@ -8,9 +8,6 @@
 ##- If the company linkedin page has no connections to view, this function SHOULD not be called
 ##- If called, this results in an errorneous delay, kill program and rerun it
 ##
-##3. Output
-##- Returns a dictionary of employeeNames and the profile profileLinks
-##- If no connections, it returns an empty dictionary
 ########################################################################################################
 
 from selenium import webdriver
@@ -18,56 +15,99 @@ from bs4 import BeautifulSoup
 import time
 import requiredConnections
 
+
+##
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
+from webdriver_manager.chrome import ChromeDriverManager
+from bs4 import BeautifulSoup
+import time
+import login_details
+import connections
+##
+
+# Returns a list of dictionaries
 def main(browser, link):
-    requiredSuffix = requiredConnections.returnRequiredConnections(link)
-
-    for person in requiredSuffix:
-        link = 
+    requiredSuffix = requiredConnections.returnRequiredConnections();
     
-    browser.get(link)
-    print('\nScraping your connections...\n')
 
+    # Takes the person's name as the key, list of their connections as the value
+    result = {}
+    peopleLinks = {}
+    
+    for person in requiredSuffix:
+        # Second, we look at Person Specific connection
+##        print(person + " " + requiredSuffix[person]) # Debug
+        suffix = requiredSuffix[person]
+        peopleLinks[person] = addConnectionsLevel(link, suffix)
+    print('\nScraping your connections...\n')
+    for person in peopleLinks:
+        print(person + "'s connections are:")
+        personLink = peopleLinks[person]
+
+        # Store in a list of dicts
+     
+        temp = scrape(browser, personLink)
+        result[person] = temp
+        
+    return result
+
+# scrape(browser, link) is the main scraper function
+def scrape(browser, link):
+    browser.get(link)
+    # Stores employeeNames and profileLinks of connectionsOf person
+    connections = []
+    
     # Process the first page
     soup = BeautifulSoup(browser.page_source, 'html.parser')
     pageNum = 2
 
-    # Check if there are 1st and 2nd degree connections. Return if none
+    # Check if there are 1st and 2nd degree connections
     totalResults = test(soup)
     if totalResults == False:
-        return {"employeeNames" : [], "profileLinks" : []};
-
-    employeeNames = []
-    profileLinks = []
-    while True:
+        return connections;
+    # If there are, scrape them
+    canFind = True
+    while canFind:
         soup = BeautifulSoup(browser.page_source, 'html.parser')
-
+        
         for profile in soup.find_all('a', class_='app-aware-link',href=True):
-            if 'View' in profile.text:
-                name = profile.text.strip().partition("View")[0];
-                print(name) # Printing to ensure the function is running correctly
-                employeeNames.append(name)
-                profileLinks.append(profile['href'])
+            try:
+                if 'View' in profile.text:
+                    name = profile.text.strip().partition("View")[0];
+                    print(name) # Printing to ensure the function is running correctly
+                    connections.append(name + " - " + profile['href'])
+            except:
+                canFind = False
         
         # Check search has completed, and number of results tally
-        if len(employeeNames) == totalResults:
+        if len(connections) == totalResults:
             break
         # Continue the search
         browser.get(link + '&page='+str(pageNum))
         pageNum += 1
         time.sleep(3)
-        
-        
-    return {"employeeNames" : employeeNames, "profileLinks" : profileLinks};
+    
+    return connections
 
+
+
+######### Less Important Functions ############################################################################################################################################
 # addConnectionsLevel(link) takes in a link, and appends the 1st and 2nd degree connections suffix
 def addConnectionsLevel(link, conn):
     linkUpdated = ""
-    for index in range(0, len(link)):
-        if (index + 6 < len(link)) and (link[index:index+6] == "poeple"):
+    index = 0
+    while index < len(link):
+        if (index + 6 < len(link)) and (link[index:index+6] == "people"):
             degreeConnections = "/?connectionOf=" + conn + "&"
-            linkUpdated = linkUpdated + degreeConnections + link[index]
+            linkUpdated = linkUpdated + link[index:index+6] + degreeConnections
+            index += 8
+
         else:
             linkUpdated = linkUpdated + link[index]
+            index += 1
     return linkUpdated
 
 # test(soup) takes in a soup object, and test if there are any search results
@@ -77,7 +117,3 @@ def test(soup):
         return totalResults;
     except:
         return False
-
-    
-if __name__ == '__main__':
-    html_extract = main(browser, link)
