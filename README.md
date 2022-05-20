@@ -18,7 +18,17 @@ Company linkedin profile should minimally be valid with Industry, Country, Num o
 1. Industry appears in industry.csv - None types appear as No Industry Found
 2. Same for country - country.csv
 3. Same for Num of employees - employees.csv
-4. Only 1/2 degree connections available, output only available in shell currently
+4. Connections of desired employees implemented! 
+
+
+## FAQ
+**Q:** I would like to change the names of the connections whom I want to scrape
+**Answer:** 
+- Create an csv file called reqCon.csv. Under the 2 columns made below, append the name of the connection, and their url_code.
+- Google how to check url_code for connection of a person
+![root\screenshots](reqcon.png)
+
+
 
 
 

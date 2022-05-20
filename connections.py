@@ -10,23 +10,12 @@
 ##
 ########################################################################################################
 
+## Libraries
 from selenium import webdriver
 from bs4 import BeautifulSoup
 import time
+## Classes
 import requiredConnections
-
-
-##
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.action_chains import ActionChains
-from webdriver_manager.chrome import ChromeDriverManager
-from bs4 import BeautifulSoup
-import time
-import login_details
-import connections
-##
 
 # Returns a list of dictionaries
 def main(browser, link):
@@ -47,14 +36,13 @@ def main(browser, link):
         print(person + "'s connections are:")
         personLink = peopleLinks[person]
 
-        # Store in a list of dicts
-     
-        temp = scrape(browser, personLink)
-        result[person] = temp
+        # Store the person's connections in a dictionary - result
+        result[person] = scrape(browser, personLink)
         
     return result
 
-# scrape(browser, link) is the main scraper function
+# scrape(browser, link) is the main scraper function. It only works for one person in
+# the required connection at a time
 def scrape(browser, link):
     browser.get(link)
     # Stores employeeNames and profileLinks of connectionsOf person
@@ -69,18 +57,19 @@ def scrape(browser, link):
     if totalResults == False:
         return connections;
     # If there are, scrape them
-    canFind = True
-    while canFind:
+    canFindConnection = True
+    while True:
         soup = BeautifulSoup(browser.page_source, 'html.parser')
-        
-        for profile in soup.find_all('a', class_='app-aware-link',href=True):
-            try:
-                if 'View' in profile.text:
-                    name = profile.text.strip().partition("View")[0];
-                    print(name) # Printing to ensure the function is running correctly
-                    connections.append(name + " - " + profile['href'])
-            except:
-                canFind = False
+
+        # If no results found, break
+        noFound = soup.find('h2', class_ = 'artdeco-empty-state__headline artdeco-empty-state__headline--mercado-empty-room-small artdeco-empty-state__headline--mercado-spots-small')
+        if (noFound) and noFound.text.strip() == "No results found":
+            break
+        for profile in soup.find_all('a', class_='app-aware-link',href=True):        
+            if 'View' in profile.text:
+                name = profile.text.strip().partition("View")[0];
+                print(name) # Printing to ensure the function is running correctly
+                connections.append(name + " - " + profile['href'])
         
         # Check search has completed, and number of results tally
         if len(connections) == totalResults:
