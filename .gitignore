@@ -1,5 +1,6 @@
 
 *.csv
+login_details.py
 linkedins.csv
 linkedins.csv
 linkedins.csv
@@ -14,4 +15,4 @@ requiredConnections.py
 linkedins.csv
 *.csv
 login_details.py
-login_details.py
+
