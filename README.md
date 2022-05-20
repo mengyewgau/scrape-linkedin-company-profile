@@ -26,13 +26,17 @@ Company linkedin profile should minimally be valid with Industry, Country, Num o
 
 ## FAQ
 **Q:** I would like to change the names of the connections whom I want to scrape
-**  Answer:** 
+
+
+**Answer:** 
 - Create an csv file called reqCon.csv. Under the 2 columns names and url_code, append respectively. Make sure there are **_no commas_**.
 - Google how to check url_code for connection of a person
 
 
 **Q:** What program to run to update the code
-**  Answer:**   Main.py
+
+
+**Answer:**   Main.py
 
 
 
