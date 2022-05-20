@@ -3,9 +3,11 @@ import csv
 import scraper as dataScraper
 import convertDict
 import pandas
+import pathlib
 
 def main(): 
     links = []
+    
     file = open("linkedins.csv", encoding = "utf8")
 
     csvreader = csv.reader(file)
@@ -33,13 +35,18 @@ def main():
     allCompanyConnections = uncleanedData["connections"]
     print(allCompanyConnections)
     df = convertDict.convert(allCompanyConnections)
-    df.to_csv('connections.csv')
+    connPath = pathlib.Path('results/connections.csv')
+    df.to_csv(connPath)
     
     
 def write_csv(data, filename):
     
+    fPath = pathlib.Path('results/' + filename + ".csv")
+    if fPath.exists() == False:
+        fPath.parent.mkdir(parents=True, exist_ok=True) 
+
     # PreCon: Data must be a list, filename MUST be a string
-    with open(filename+".csv", "w", encoding = "utf8") as f:
+    with open(fPath, "w", encoding = "utf8") as f:
         for line in data:
             f.write("%s\n"%line)
 
