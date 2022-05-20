@@ -44,3 +44,4 @@ Company linkedin profile should minimally be valid with Industry, Country, Num o
 
 ### Screenshots
 <img src='screenshots/reqconexample.png' >
+<img src='screenshots/logindetailsformat.png' >
