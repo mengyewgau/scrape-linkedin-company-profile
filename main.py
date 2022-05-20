@@ -1,6 +1,8 @@
 from googlesearch import search   
 import csv
 import scraper as dataScraper
+import convertDict
+import pandas
 
 def main(): 
     links = []
@@ -29,9 +31,9 @@ def main():
     # Convert the dictionary to a pandas dataframe
 
     allCompanyConnections = uncleanedData["connections"]
-
-    for co in allCompanyConnections:
-        print(co)
+    print(allCompanyConnections)
+    df = convertDict.convert(allCompanyConnections)
+    df.to_csv('connections.csv')
     
     
 def write_csv(data, filename):
@@ -45,3 +47,8 @@ def write_csv(data, filename):
 
 if __name__ == '__main__':
     html_extract = main()
+
+
+
+
+
