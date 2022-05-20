@@ -11,12 +11,14 @@
 
 
 ## Data Requirements
-1. Company LinkedIn profile must be known, and in url format
-2. URLs must be a valid LinkedIn profile
+Company linkedin profile should minimally be valid with Industry, Country, Num of Employees, and connections
+
 
 ## Supported functionalities
-1. Able to scrape for **English** countries/industries only
-2. Missing LinkedIn appears as "Blank" in output
-3. LinkedIn pages that are not claimed appear as "Error"
+1. Industry appears in industry.csv - None types appear as No Industry Found
+2. Same for country - country.csv
+3. Same for Num of employees - employees.csv
+4. Only 1/2 degree connections available, output only available in shell currently
+
 
 
