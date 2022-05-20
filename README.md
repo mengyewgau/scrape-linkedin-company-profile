@@ -23,6 +23,7 @@ Company linkedin profile should minimally be valid with Industry, Country, Num o
 1. Store your linkedin profiles in a linkedins.csv file
 2. Save it in the same directory as all the program files
 3. The output csv files will be found in the results folder
+4. Fill in your linkedin login details in login_details.py
 
 ## FAQ
 **Q:** I would like to change the names of the connections whom I want to scrape
