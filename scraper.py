@@ -102,7 +102,7 @@ def loginToLinkedIn():
         details = login_details.details();
     except:
         driver.quit()
-        raise Exception("Login Details are unavailable")
+        print("Login Details are unavailable")
 
     # entering username
     username = driver.find_element(By.ID, "username")

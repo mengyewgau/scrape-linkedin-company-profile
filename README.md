@@ -20,18 +20,18 @@ Company linkedin profile should minimally be valid with Industry, Country, Num o
 
 
 ## User Guide
-1. Store your linkedin profiles in a linkedins.csv file
+1. Store your linkedin profiles in a linkedins.csv file (An example is set below)
 2. Save it in the same directory as all the program files
 3. The output csv files will be found in the results folder
 4. Fill in your linkedin login details in login_details.py
 
 ## FAQ
-**Q:** How do I set my email and password for my LinkedIn account
+**Q:** How do I set my email and password for my LinkedIn account?
 
 
 **Answer:** 
-- In the folder 'Sensitive', you will find a login.csv file. 
-- First row, first column will be your email
+- In the folder 'inputs', you will find a login.csv file. 
+- First row, first column will be your email > Simply replace the cell, it has been marked
 - Second row, first column will be your password
 - Once added, save the file, and close it!
 
@@ -39,8 +39,10 @@ Company linkedin profile should minimally be valid with Industry, Country, Num o
 
 
 **Answer:** 
-- Create an csv file called reqCon.csv. Under the 2 columns names and url_code, append respectively. Make sure there are **_no commas_**.
+- In the folder 'inputs', you will find a reqCon.csv file
+- CUnder the 2 columns **names** and **url_code**, append respectively. Make sure there are **_no commas_**.
 - Google how to check url_code for connection of a person
+- Fill them in respectively
 
 
 **Q:** What program to run to update the code
@@ -52,5 +54,6 @@ Company linkedin profile should minimally be valid with Industry, Country, Num o
 
 
 ### Screenshots
-<img src='screenshots/reqconexample.png' >
+<img src='screenshots/linkedinsformat.png' >
 <img src='screenshots/logindetailsformat.png' >
+<img src='screenshots/reqconexample.png' >

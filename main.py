@@ -10,7 +10,7 @@ import csv_functions as cf
 def main(): 
     links = []
     
-    file = open("linkedins.csv", encoding = "utf8")
+    file = open("inputs/linkedins.csv", encoding = "utf8")
 
     csvreader = csv.reader(file)
     for row in csvreader:

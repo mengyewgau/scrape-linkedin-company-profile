@@ -14,7 +14,7 @@ import pandas as pd
 
 def returnRequiredConnections():
     col_list = ["name", "url_code"]
-    df = pd.read_csv("reqCon.csv", usecols=col_list).set_index('name')
+    df = pd.read_csv("inputs/reqCon.csv", usecols=col_list).set_index('name')
 
     return df['url_code'].to_dict()
 
