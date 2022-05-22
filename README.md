@@ -26,6 +26,15 @@ Company linkedin profile should minimally be valid with Industry, Country, Num o
 4. Fill in your linkedin login details in login_details.py
 
 ## FAQ
+**Q:** How do I set my email and password for my LinkedIn account
+
+
+**Answer:** 
+- In the folder 'Sensitive', you will find a login.csv file. 
+- First row, first column will be your email
+- Second row, first column will be your password
+- Once added, save the file, and close it!
+
 **Q:** I would like to change the names of the connections whom I want to scrape
 
 

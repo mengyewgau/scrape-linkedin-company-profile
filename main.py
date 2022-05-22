@@ -1,9 +1,11 @@
-from googlesearch import search   
 import csv
 import scraper as dataScraper
 import convertDict
 import pandas
 import pathlib
+
+# Modules
+import csv_functions as cf
 
 def main(): 
     links = []
@@ -21,13 +23,13 @@ def main():
     uncleanedData = dataScraper.main(links)
     #Write data for industry
     industry = uncleanedData["industry"]
-    write_csv(industry, "industry")
+    cf.write_csv(industry, "industry")
     #Write data for countries
     country = uncleanedData["country"]
-    write_csv(country, "country")
+    cf.write_csv(country, "country")
     #Write data for employees
     employees = uncleanedData["totalEmployees"] 
-    write_csv(employees,"employees")
+    cf.write_csv(employees,"employees")
 
 
     # Convert the dictionary to a pandas dataframe
@@ -37,18 +39,6 @@ def main():
     df = convertDict.convert(allCompanyConnections)
     connPath = pathlib.Path('results/connections.csv')
     df.to_csv(connPath)
-    
-    
-def write_csv(data, filename):
-    
-    fPath = pathlib.Path('results/' + filename + ".csv")
-    if fPath.exists() == False:
-        fPath.parent.mkdir(parents=True, exist_ok=True) 
-
-    # PreCon: Data must be a list, filename MUST be a string
-    with open(fPath, "w", encoding = "utf8") as f:
-        for line in data:
-            f.write("%s\n"%line)
 
 
 
