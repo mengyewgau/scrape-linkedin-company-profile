@@ -5,6 +5,7 @@
 2. webdriver_manager
 3. Beautifulsoup4
 4. pandas
+5. lxml
 
 
 ## Data Requirements
