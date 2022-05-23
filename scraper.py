@@ -44,7 +44,7 @@ def main(linkedins):
         soup = BeautifulSoup(src, 'lxml')
 
         # Scrape company name
-        companyName = soup.find('h1', class_ = "t-24 t-black t-bold full-width").get_text().strip();
+        companyName = soup.find_all('h1', class_ = "t-24 t-black t-bold full-width")[0].get_text().strip();
         print(companyName)
 
         # Scrape for the industry of the company. If successful, add it to the list

@@ -2,10 +2,9 @@
 
 ## Libraries Used
 1. Selenium 
-2. Webdriver_manager.chrome
-3. Beautiful Soup
-4. Time
-5. csv
+2. webdriver_manager
+3. Beautifulsoup4
+4. pandas
 
 
 ## Data Requirements
