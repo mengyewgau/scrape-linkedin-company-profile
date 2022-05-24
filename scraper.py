@@ -36,7 +36,7 @@ def main(linkedins):
             continue;
         
         driver.get(company)
-        start = time.time()
+        time.sleep(5)
           
         # Scrape the lxml page for the data we need
         src = driver.page_source
@@ -44,8 +44,8 @@ def main(linkedins):
         soup = BeautifulSoup(src, 'lxml')
 
         # Scrape company name
-        companyName = soup.find_all('h1', class_ = "t-24 t-black t-bold full-width")[0].get_text().strip();
-        print(companyName)
+        companyName = soup.select('h1', class_ = "t-24 t-black t-bold full-width")[0].get_text().strip();
+        print("\n" + companyName)
 
         # Scrape for the industry of the company. If successful, add it to the list
         intro = soup.find('div', {'class': "ph5 pt3"})
@@ -72,26 +72,26 @@ def main(linkedins):
         ## Scrape 1st and 2nd degree connections. If successful, add it to the dictionary
         
         # Find the search link of this company
-        
         searchLinkSuffix = soup.find('a', class_= "ember-view org-top-card-secondary-content__see-all-link", href = True)
         # To switch between different LinkedIn formats
         if searchLinkSuffix == None:
-            searchLinkSuffix = soup.find('div', class_='display-flex mt2 mb1').find('a', href = True)
-        # If the link is present, scrape the profile. Else, return none found
-        if searchLinkSuffix:
-            searchLink = "https://www.linkedin.com/" + searchLinkSuffix['href']
-            connCompany = connections.main(driver, searchLink)
-            allConnections[companyName] = connCompany
+            try:
+                searchLinkSuffix = soup.find('div', class_='display-flex mt2 mb1').find('a', href = True)
+            except:
+                allConnections[companyName] = requiredConnections.returnCompanyConnectionsNotFound();
+            else:
+                allConnections[companyName] = useConnectionsScraper(driver, searchLinkSuffix);
         else:
-            allConnections[companyName] = requiredConnections.returnCompanyConnectionsNotFound();
+            allConnections[companyName] = useConnectionsScraper(driver, searchLinkSuffix);
             
 
     # Code completed, exit and return
     driver.quit()
     return {"industry" : industry, "country" : country, "totalEmployees" : totalEmployees, "connections" : allConnections}
 
-
-
+def useConnectionsScraper(driver, searchLinkSuffix):
+    searchLink = "https://www.linkedin.com/" + searchLinkSuffix['href']
+    return connections.main(driver, searchLink)
 
 def loginToLinkedIn():
     # Open the driver
