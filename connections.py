@@ -69,7 +69,7 @@ def scrape(browser, link):
             if 'View' in profile.text:
                 name = profile.text.strip().partition("View")[0];
                 print(name) # Printing to ensure the function is running correctly
-                connections.append(name + " - " + profile['href'])
+                connections.append(name + " - " + profile['href'].split("?")[0])
         
         # Check search has completed, and number of results tally
         if len(connections) == totalResults:
