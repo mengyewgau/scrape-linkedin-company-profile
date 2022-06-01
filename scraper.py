@@ -26,6 +26,7 @@ def main(linkedins):
     country = []
     totalEmployees = []
     allConnections = {}
+    noneCounter = 0;
 
     # Main Code
     for company in linkedins:  
@@ -33,6 +34,8 @@ def main(linkedins):
             industry.append("No Industry");
             country.append("No Country");
             totalEmployees.append("No Employee Information");
+            allConnections[str(noneCounter)] = requiredConnections.returnCompanyConnectionsNotFound();
+            noneCounter+=1
             continue;
         
         driver.get(company)
