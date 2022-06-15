@@ -3,74 +3,64 @@
 #############################
 
 ### Libraries
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.action_chains import ActionChains
-from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
 import time
 ### Classes
-import login_details
+import login
 import connections
-import requiredConnections
-
-
+import requiredConnections;
+import country;
+import industry;
+import numEmployees;
 
 def main(linkedins):
-    driver = loginToLinkedIn()
+    driver = login.loginToLinkedIn()
 
     # Local storage variables
-    result = {}
-    industry = []
-    country = []
+    verticals = []
+    countries = []
     totalEmployees = []
     allConnections = {}
-    noneCounter = 0;
+
+    def failedConnections(companyLinkedIn): #Helper function
+        industry.append("Failed");
+        countries.append("Failed");
+        totalEmployees.append("Failed");
+        allConnections[companyLinkedIn] = requiredConnections.returnCompanyConnectionsNotFound();
 
     # Main Code
-    for company in linkedins:  
+    for company in linkedins:
         if company == "Blank":
-            industry.append("No Industry");
-            country.append("No Country");
-            totalEmployees.append("No Employee Information");
-            allConnections[str(noneCounter)] = requiredConnections.returnCompanyConnectionsNotFound();
-            noneCounter+=1
+            failedConnections(company);
             continue;
         
         driver.get(company)
         time.sleep(5)
-          
+        
         # Scrape the lxml page for the data we need
         src = driver.page_source
 
         soup = BeautifulSoup(src, 'lxml')
 
-        # Scrape company name
-        companyName = soup.select('h1', class_ = "t-24 t-black t-bold full-width")[0].get_text().strip();
-        print("\n" + companyName)
+        # Scrape company name, this is the first check to ensure the scraping is correct
+        try:
+            companyName = soup.select('h1', class_ = "t-24 t-black t-bold full-width")[0].get_text().strip();
+            print("\n" + companyName)
+        except:
+            failedConnections(company);
+            continue;
+
 
         # Scrape for the industry of the company. If successful, add it to the list
         intro = soup.find('div', {'class': "ph5 pt3"})
-        try:  
-            items = intro.find_all("div", {'class': 'org-top-card-summary-info-list__info-item'})
-            industry.append(items[0].get_text().strip().replace(",", ";"))
-        except:
-            industry.append("No Industry");
-
-        ## Scrape for the country of the company. If successful, add it to the list
-        try:
-            country.append(items[1].get_text().strip().replace(",", ";"))
-        except:
-            country.append("No Country");
+        items = intro.find_all("div", {'class': 'org-top-card-summary-info-list__info-item'})
         
-
+        ## Scrape for the country of the company. If successful, add it to the list
+        verticals = industry.getVertical(items, verticals);
+        ## Scrape for the country of the company. If successful, add it to the list
+        countries = country.getCountry(items, countries);
         ## Scrape the number of employees. If successful, add it to the list
-        try:
-            totalEmployeesNum = intro.find("span", {'class': "org-top-card-secondary-content__see-all t-normal t-black--light link-without-visited-state link-without-hover-state"})
-            totalEmployees.append(totalEmployeesNum.get_text().strip().replace(",",""))
-        except:
-            totalEmployees.append("No Employee Information");
+        totalEmployees =  numEmployees.getNumEmployees(intro, totalEmployees)
 
         ## Scrape 1st and 2nd degree connections. If successful, add it to the dictionary
         
@@ -90,39 +80,10 @@ def main(linkedins):
 
     # Code completed, exit and return
     driver.quit()
-    return {"industry" : industry, "country" : country, "totalEmployees" : totalEmployees, "connections" : allConnections}
+    return {"industry" : verticals, "country" : countries, "totalEmployees" : totalEmployees, "connections" : allConnections}
 
 def useConnectionsScraper(driver, searchLinkSuffix):
     searchLink = "https://www.linkedin.com/" + searchLinkSuffix['href']
     return connections.main(driver, searchLink)
 
-def loginToLinkedIn():
-    # Open the driver
-    driver = webdriver.Chrome(ChromeDriverManager().install())
-    driver.get("https://linkedin.com/uas/login")
 
-    try:
-        details = login_details.details();
-    except:
-        driver.quit()
-        print("Login Details are unavailable")
-
-    # entering username
-    username = driver.find_element(By.ID, "username")
-
-    # Enter Your Email Address
-    username.send_keys(details['email'])  
-      
-    # entering password
-    pword = driver.find_element(By.ID,"password")
-
-    # Enter Your Password
-    pword.send_keys(details['password'])
-
-    # Clicking on the log in button
-    # Format (syntax) of writing XPath --> 
-    # //tagname[@attribute='value']
-    driver.find_element(By.XPATH, "//button[@type='submit']").click()
-    time.sleep(5)
-
-    return driver
