@@ -1,6 +1,6 @@
 # scrape-linkedin-company-for-connections
 
-## Libraries Used
+# Developer Guide
 `pip install selenium webdriver_manager beautifulsoup4 pandas lxml pathlib`
 
 1. Selenium 
@@ -10,10 +10,7 @@
 5. lxml
 6. Pathlib
 
-
-## Data Requirements
-Company linkedin profile should minimally be valid with Industry, Country, Num of Employees, and connections
-
+# User Guide
 
 ## Supported functionalities
 1. Industry appears in industry.csv - None types appear as No Industry Found
@@ -21,14 +18,15 @@ Company linkedin profile should minimally be valid with Industry, Country, Num o
 3. Same for Num of employees - employees.csv
 4. Connections of desired employees - connections.csv
 
+## Data Requirements
+Company linkedin profile should minimally be valid with Industry, Country, Num of Employees, and connections
 
-## User Guide
 1. Store your linkedin profiles in a linkedins.csv file (An example is set below)
 2. Save it in the same directory as all the program files
 3. The output csv files will be found in the results folder
 4. Fill in your linkedin login details in login_details.py
 
-## FAQ
+# FAQ
 **Q:** How do I set my email and password for my LinkedIn account? <br />
 **Answer:** 
 - In the folder 'inputs', you will find a login.csv file. 
