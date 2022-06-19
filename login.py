@@ -7,8 +7,12 @@ import time
 import login_details
 
 def loginToLinkedIn():
+
+    # Minimises and makes selenium run in the background
+    options = webdriver.ChromeOptions();
+    options.add_argument('--headless');
     # Open the driver
-    driver = webdriver.Chrome(ChromeDriverManager().install())
+    driver = webdriver.Chrome(ChromeDriverManager().install(), options=options);
     driver.get("https://linkedin.com/uas/login")
 
     try:

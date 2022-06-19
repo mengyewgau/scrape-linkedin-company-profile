@@ -1,7 +1,6 @@
 import csv
 import scraper as dataScraper
 import convertDict
-import pandas
 import pathlib
 
 # Modules
@@ -33,7 +32,6 @@ def main():
 
 
     # Convert the dictionary to a pandas dataframe
-
     allCompanyConnections = uncleanedData["connections"]
     print(allCompanyConnections)
     df = convertDict.convert(allCompanyConnections)
