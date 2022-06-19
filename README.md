@@ -1,13 +1,14 @@
 # scrape-linkedin-company-for-connections
 
 ## Libraries Used
+`pip install selenium webdriver_manager beautifulsoup4 pandas lxml pathlib`
+
 1. Selenium 
 2. webdriver_manager
 3. Beautifulsoup4
 4. pandas
 5. lxml
 6. Pathlib
-`pip install selenium webdriver_manager beautifulsoup4 pandas lxml pathlib`
 
 
 ## Data Requirements
@@ -34,7 +35,7 @@ Company linkedin profile should minimally be valid with Industry, Country, Num o
 - First row, first column will be your email > Simply replace the cell, it has been marked
 - Second row, first column will be your password
 - Once added, save the file, and close it!
-<br />
+<br/>
 **Q:** I would like to change the names of the connections whom I want to scrape <br />
 **Answer:** 
 - In the folder 'inputs', you will find a reqCon.csv file
