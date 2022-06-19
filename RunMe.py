@@ -1,10 +1,11 @@
-import csv
-import scraper as dataScraper
-import convertDict
+# Libraries
 import pathlib
 
 # Modules
 import csv_functions as cf
+import csv
+import scraper as dataScraper
+import convertDict
 
 def main(): 
     links = []
